@@ -1,5 +1,6 @@
 package com.iweb.pro_test.DAO;
 import com.iweb.pro_test.clazzs.*;
+import com.sun.xml.internal.ws.wsdl.writer.document.http.Address;
 
 
 import java.util.Collection;
@@ -58,19 +59,19 @@ public interface UserDao {
      * @param user 用户
      * @return 返回某个用户的所有地址
      */
-    Collection<Address> selectAddress(User user);
+    Collection<Address> selectAddress(int user_id);
 
     /**需要添加的地址
      * @param user 某个用户
      * @param address 地址
      */
-    void insertAddress(User user, Address address);
+    void insertAddress(Address address);
 
     /**需要删除的用户地址，要求用户提供地址id
      * @param user 用户
      * @param address 地址
      */
-    void deleteAddress(User user, Address address);
+    void deleteAddress(int id);
 
     /**返回用户的订单信息
      * @param user 用户
