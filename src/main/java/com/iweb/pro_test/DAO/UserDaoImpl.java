@@ -2,6 +2,7 @@ package com.iweb.pro_test.DAO;
 
 import com.iweb.pro_test.clazzs.*;
 import com.iweb.pro_test.Until.DBUtil;
+import com.iweb.pro_test.view.View;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +34,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Collection<User> selectUsers() {
+    public User selectUser(String user_name) {
         return null;
     }
 
@@ -68,7 +69,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Address selectAddress(User user) {
+    public Collection<Address> selectAddress(User user) {
         return null;
     }
 
@@ -91,18 +92,25 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void addOrder(User user, Order order,Product product) {
         String selectSumPrice = "select sum_price from shopcar";
+        String selectProductNum="select count(*) num from shopcar";
         String selectMoney = "select money from user where user_id=?";
         String insertToOrder = "insert into order(user_id,product_id,product_name,product_price," +
                 "product_num,order_sum_price,order_state) values (?,?,?,?,?,?,?)";
-        Double sum_price = 0.0;
-        Double money = 0.0;
+        double sum_price = 0.0;
+        double money = 0.0;
+        int productNum=0;
         try {
             preparedStatement = connection.prepareStatement(selectSumPrice);
             ResultSet sumPrice = preparedStatement.executeQuery();
             while (sumPrice.next()) {
                 sum_price = sumPrice.getDouble("sum_price");
+            }  preparedStatement = connection.prepareStatement(selectProductNum);
+            ResultSet num = preparedStatement.executeQuery();
+            while (sumPrice.next()) {
+                productNum = sumPrice.getInt("num");
             }
             preparedStatement = connection.prepareStatement(selectMoney);
+            preparedStatement.setInt(1,user.getUser_id());
             ResultSet reMoney = preparedStatement.executeQuery();
             while (reMoney.next()) {
                 money = reMoney.getDouble("money");
@@ -121,13 +129,13 @@ public class UserDaoImpl implements UserDao {
             try {
                 preparedStatement = connection.prepareStatement(insertToOrder);
 //                设置对应参数
-//                preparedStatement.setInt(1, user.getUser_id());
-//                preparedStatement.setInt(2, order.getOrder_num());
-//                preparedStatement.setInt(3, product.getProduct_name());
-//                preparedStatement.setInt(4, );
-//                preparedStatement.setInt(5, );
-//                preparedStatement.setInt(6, );
-//                preparedStatement.setInt(7, );
+                preparedStatement.setInt(1, user.getUser_id());
+                preparedStatement.setInt(2, product.getProduct_id());
+                preparedStatement.setString(3, product.getProduct_name());
+                preparedStatement.setDouble(4,product.getProduct_price());
+                preparedStatement.setInt(5, productNum);
+                preparedStatement.setDouble(6, sum_price);
+                preparedStatement.setString(7, "待发货");
                 preparedStatement.execute();
                 System.out.println("即将返回首页······");
                 try {
@@ -136,6 +144,7 @@ public class UserDaoImpl implements UserDao {
                     e.printStackTrace();
                 }
 //                跳转首页
+                View.shopping();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
