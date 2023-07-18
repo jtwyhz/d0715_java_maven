@@ -1,17 +1,16 @@
 package com.iweb.pro_test.DAO;
 
-import com.iweb.pro_test.clazzs.*;
+import com.iweb.pro_test.entry.*;
 import com.iweb.pro_test.Until.DBUtil;
 import com.iweb.pro_test.view.View;
 import com.sun.xml.internal.ws.wsdl.writer.document.http.Address;
+import org.apache.commons.math3.analysis.function.Add;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -72,39 +71,39 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Collection<Address> selectAddress(int user_id) {
-            List<Address> addressList = new ArrayList<>();
-            try (Connection conn = DBUtil.getConnection()) {
-                String sql = "SELECT * FROM address WHERE user_id = ?";
-                PreparedStatement statement = conn.prepareStatement(sql);
-                statement.setInt(1, user_id);
-                ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("id");
-                    String detail = resultSet.getString("detail");
-                    Address address = new Address(id, user_id, detail);
-                    addressList.add(address);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+    public Address getAddress(int user_id, String detail,int address_id) {
+        try (Connection conn = DBUtil.getConnection()) {
+            String sql = "SELECT * FROM address WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, user_id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int user_id1 = resultSet.getInt("user_id");
+                String detail1 = resultSet.getString("detail");
+                int address_id1 = resultSet.getInt("address_id");
             }
-            return addressList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
+
     @Override
-    public void insertAddress(Address address) {
+    public void insertAddress(Address address, int address_id,int user_id,String detail) {
         try (Connection conn = DBUtil.getConnection()) {
-            String sql = "INSERT INTO address(id, user_id, detail) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO address(address_id, user_id, detail) VALUES (?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, address.getId());
-            statement.setInt(2, address.getUser_id());
-            statement.setString(3, address.getDetail());
+            statement.setInt(1,address_id);
+            statement.setInt(2, Integer.parseInt(detail));
+            statement.setString(3, String.valueOf(user_id));
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
 
     @Override
     public void deleteAddress(int id) {

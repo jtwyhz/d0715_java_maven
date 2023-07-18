@@ -56,20 +56,20 @@ public interface UserDao {
     void deleteProductFromCar(User user, Product product);
 
     /** 查看地址
-     * @param user 用户
+     * @param
      * @return 返回某个用户的所有地址
      */
-    Collection<Address> selectAddress(int user_id);
+     Address getAddress(int user_id, String detail,int address_id);
 
     /**需要添加的地址
-     * @param user 某个用户
+     * @param user_id 用户
      * @param address 地址
      */
-    void insertAddress(Address address);
+    void insertAddress(Address address,int Address_id,int user_id,String detail);
 
     /**需要删除的用户地址，要求用户提供地址id
-     * @param user 用户
-     * @param address 地址
+     * @param id 用户
+     * @param
      */
     void deleteAddress(int id);
 
