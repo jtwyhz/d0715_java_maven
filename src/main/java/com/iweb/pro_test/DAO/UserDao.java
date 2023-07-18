@@ -1,5 +1,5 @@
 package com.iweb.pro_test.DAO;
-import com.iweb.pro_test.clazzs.*;
+import com.iweb.pro_test.entry.*;
 import com.sun.xml.internal.ws.wsdl.writer.document.http.Address;
 
 
