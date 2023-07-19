@@ -1,6 +1,5 @@
 package com.iweb.DAO;
 import com.iweb.clazzs.*;
-import com.iweb.pro_test.clazzs.*;
 
 
 import java.util.Collection;
@@ -66,11 +65,6 @@ public interface UserDAO {
      */
     void deleteProductFromCar(User user, Product product);
 
-    /** 查看地址
-     * @param
-     * @return 返回某个用户的所有地址
-     */
-     com.sun.xml.internal.ws.wsdl.writer.document.http.Address getAddress(int user_id, String detail, int address_id);
 
     /**需要添加的地址
      * @param user_id 用户
@@ -78,6 +72,13 @@ public interface UserDAO {
      */
     void insertAddress(Address address, int Address_id, int user_id, String detail);
 
+    /** 获得地址
+     * @param user_id
+     * @param detail
+     * @param address_id
+     * @return
+     */
+    Address getAddress(int user_id, String detail, int address_id);
 
     /**需要删除的用户地址，要求用户提供地址id
      * @param id 用户
@@ -94,5 +95,5 @@ public interface UserDAO {
     /**购物车结算，生成订单
      * @param user 用户
      */
-
+    void addOrder(User user, Order order, Product product);
 }

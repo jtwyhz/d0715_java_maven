@@ -1,13 +1,9 @@
 package com.iweb.DAO.impl;
 
 import com.iweb.DAO.UserDAO;
-import com.iweb.clazzs.Order;
-import com.iweb.clazzs.Product;
-import com.iweb.clazzs.ShopCar;
-import com.iweb.clazzs.User;
+import com.iweb.clazzs.*;
 import com.iweb.Until.DBUtil;
 import com.iweb.view.View;
-import com.sun.xml.internal.ws.wsdl.writer.document.http.Address;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -69,8 +65,8 @@ public class UserDAOImpl implements UserDAO {
 //        创建集合存储用户对象
         List<User> list = new ArrayList<>();
         String sql = "select * from user";
-        try (Connection c = DBUtil.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)
+        try (
+             PreparedStatement ps = connection.prepareStatement(sql)
         ) {
 //            讲查询的执行结果存到结果集中
             ResultSet rs = ps.executeQuery();
@@ -98,8 +94,8 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void checkMoney(User user) {
         String sql = "select * from user where user_name='?'";
-        try (Connection c = DBUtil.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        try (
+             PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, user.getUser_name());
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -115,10 +111,6 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
-    @Override
-    public void insertAddress(com.iweb.clazzs.Address address, int Address_id, int user_id, String detail) {
-
-    }
 
     @Override
     public Collection<Product> lookProduct() {
@@ -140,11 +132,12 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
+
     @Override
     public Address getAddress(int user_id, String detail, int address_id) {
-        try (Connection conn = DBUtil.getConnection()) {
+        try  {
             String sql = "SELECT * FROM address WHERE id = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
             System.out.println("需要获取的地址是：");
             statement.setInt(1, user_id);
             ResultSet resultSet = statement.executeQuery();
@@ -162,12 +155,11 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
-
     @Override
     public void insertAddress(Address address, int address_id, int user_id, String detail) {
-        try (Connection conn = DBUtil.getConnection()) {
+        try  {
             String sql = "INSERT INTO address(address_id, user_id, detail) VALUES (?, ?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
             System.out.println("你需要插入的地址是：");
             statement.setInt(1,address_id);
             statement.setInt(2, Integer.parseInt(detail));
@@ -182,9 +174,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteAddress(int id) {
-        try (Connection conn = DBUtil.getConnection()) {
+        try  {
             String sql = "DELETE FROM address WHERE id = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
             System.out.println("你需要删除的地址是：");
             statement.setInt(1, id);
             statement.executeUpdate();
@@ -256,7 +248,7 @@ public class UserDAOImpl implements UserDAO {
                     e.printStackTrace();
                 }
 //                跳转首页
-                View.shopping();
+//                View.shopping();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
