@@ -60,10 +60,10 @@ public interface UserDAO {
     void addProductToCar(User user, Product product);
 
     /**将商品从购物车中删除
-     * @param user 为哪个用户的购物车添加
-     * @param product 某件商品，要求用户提供商品id
+     * @param user_id 为哪个用户的购物车
+     * @param product_id 某件商品，要求用户提供商品id
      */
-    void deleteProductFromCar(User user, Product product);
+    void deleteProductFromCar(int user_id, int product_id);
 
 
     /**需要添加的地址
@@ -95,5 +95,5 @@ public interface UserDAO {
     /**购物车结算，生成订单
      * @param user 用户
      */
-    void addOrder(User user, Order order, Product product);
+    void addOrder(User user);
 }
