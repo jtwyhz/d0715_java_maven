@@ -64,13 +64,15 @@ public interface UserDao {
      * @param
      * @return 返回某个用户的所有地址
      */
-     Address getAddress(int user_id, String detail,int address_id);
+     com.sun.xml.internal.ws.wsdl.writer.document.http.Address getAddress(int user_id, String detail, int address_id);
 
     /**需要添加的地址
      * @param user_id 用户
      * @param address 地址
      */
     void insertAddress(Address address,int Address_id,int user_id,String detail);
+
+    void insertAddress(com.sun.xml.internal.ws.wsdl.writer.document.http.Address address, int address_id, int user_id, String detail);
 
     /**需要删除的用户地址，要求用户提供地址id
      * @param id 用户
@@ -90,4 +92,5 @@ public interface UserDao {
     void addOrder(User user);
 
 
+    void addOrder(User user, Order order, Product product);
 }

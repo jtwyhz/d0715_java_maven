@@ -1,10 +1,9 @@
 package com.iweb.pro_test.DAO;
 
-import com.iweb.pro_test.entry.*;
+import com.iweb.pro_test.clazzs.*;
 import com.iweb.pro_test.Until.DBUtil;
 import com.iweb.pro_test.view.View;
 import com.sun.xml.internal.ws.wsdl.writer.document.http.Address;
-import org.apache.commons.math3.analysis.function.Add;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +16,7 @@ import java.util.Scanner;
  * @author tang
  * @date 2023/7/17 18:47
  */
-public class UserDaoImpl implements UserDao {
+public abstract class UserDaoImpl implements UserDao {
     Connection connection;
     PreparedStatement preparedStatement;
     Scanner scanner = new Scanner(System.in);
@@ -71,16 +70,20 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Address getAddress(int user_id, String detail,int address_id) {
+    public Address getAddress(int user_id, String detail, int address_id) {
         try (Connection conn = DBUtil.getConnection()) {
             String sql = "SELECT * FROM address WHERE id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
+            System.out.println("需要获取的地址是：");
             statement.setInt(1, user_id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int user_id1 = resultSet.getInt("user_id");
                 String detail1 = resultSet.getString("detail");
                 int address_id1 = resultSet.getInt("address_id");
+                System.out.println("用户id："+user_id1);
+                System.out.println("地址："+detail1);
+                System.out.println("地址id："+address_id1);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,10 +93,11 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public void insertAddress(Address address, int address_id,int user_id,String detail) {
+    public void insertAddress(Address address, int address_id, int user_id, String detail) {
         try (Connection conn = DBUtil.getConnection()) {
             String sql = "INSERT INTO address(address_id, user_id, detail) VALUES (?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
+            System.out.println("你需要插入的地址是：");
             statement.setInt(1,address_id);
             statement.setInt(2, Integer.parseInt(detail));
             statement.setString(3, String.valueOf(user_id));
@@ -110,6 +114,7 @@ public class UserDaoImpl implements UserDao {
         try (Connection conn = DBUtil.getConnection()) {
             String sql = "DELETE FROM address WHERE id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
+            System.out.println("你需要删除的地址是：");
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (Exception e) {
