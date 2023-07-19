@@ -62,11 +62,11 @@ public interface AdminDAO {
      */
     Collection<Order> checkOrder();
 
-    /**
-     * 修改订单信息
-     *
+
+    /**修改订单信息
      * @param oid 要修改订单的id
+     * @param state 修改状态
      */
-    void changeOrder(int oid);
+    void changeOrder(int oid,String state);
 
 }

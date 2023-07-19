@@ -219,19 +219,43 @@ public class AdminDAOImpl implements AdminDAO {
                 order.setOrder_state(rs.getString(7));
                 list.add(order);
             }
-            for (Order o:list
-                 ) {
+            for (Order o : list
+            ) {
                 System.out.println(o);
             }
             View.adminLoginSuccess();
         } catch (Exception e) {
 
         }
-        return list.isEmpty()?null:list;
+        return list.isEmpty() ? null : list;
     }
 
     @Override
-    public void changeOrder(int oid) {
-
+    public void changeOrder(int oid, String state) {
+        String sql = "select order_num from orders ";
+        String sql1 = "update orders set order_state=? where order_num=?" ;
+        try (Connection c = DBUtil.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql);
+             PreparedStatement ps1 = c.prepareStatement(sql1)
+        ) {
+            ResultSet rs = ps.executeQuery();
+            boolean isExist = true;
+            while (rs.next()) {
+                if (oid==rs.getInt(1)) {
+                    ps1.setString(1,state);
+                    ps1.setInt(2,oid);
+                    ps1.execute();
+                    System.out.println("修改成功");
+                    isExist=false;
+                    break;
+                }
+            }
+            if (isExist){
+                System.out.println("订单不存在");
+            }
+            View.adminLoginSuccess();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -159,6 +159,11 @@ public class Controller {
                 adminDAO.checkOrder();
                 break;
             case "6":
+                System.out.println("请输入要修改订单id");
+                int oid=sc.nextInt();
+                System.out.println("输入修改后的状态");
+                String state=sc.next();
+                adminDAO.changeOrder(oid,state);
                 break;
             default:
                 break;
