@@ -31,7 +31,7 @@ public class ShopCarDAOimpl implements ShopCarDAO {
     //    向购物车 插入订单数据
     @Override
     public void insert(Integer shop_carid,Integer user_id,Integer product_id,
-                       String product_prce,String product_num,Integer sum_price) {
+                       Integer product_prce,String product_num,String sum_price) {
         int count = 0;
         String sql = "insert into shopcar values(?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBUtil.getConnection();
@@ -41,9 +41,9 @@ public class ShopCarDAOimpl implements ShopCarDAO {
             ps.setInt(1,shop_carid);
             ps.setInt(2,user_id);
             ps.setInt(3,product_id);
-            ps.setString(4,product_prce);
+            ps.setInt(4,product_prce);
             ps.setString(5,product_num);
-            ps.setInt(6,sum_price);
+            ps.setString(6,sum_price);
             ps.execute();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
