@@ -24,4 +24,7 @@ public class Product {
     private String property_name;
     private String property_describe;
     private int admin_id;
+
+    public Product(String str, double v, int i, int i1, int i2, int i3) {
+    }
 }

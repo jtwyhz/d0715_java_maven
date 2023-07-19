@@ -120,8 +120,26 @@ public class Controller {
     public static void adminSuccessController(String key) {
         switch (key) {
             case "1":
+                Product product=new Product();
+                System.out.println("*****************");
+                System.out.println("请输入添加的商品名字");
+                product.setProduct_name(sc.next());
+                System.out.println("请输入添加的商品价格（double）");
+                product.setProduct_price(sc.nextDouble());
+                System.out.println("请输入添加的商品库存");
+                product.setStock_num(sc.nextInt());
+                System.out.println("请输入添加的商品销量");
+                product.setSales_num(sc.nextInt());
+                System.out.println("请输入添加的商品属性id");
+                product.setProperty_id(sc.nextInt());
+                System.out.println("请输入添加的商品管理员id");
+                product.setAdmin_id(sc.nextInt());
+                adminDAO.addProduct(product);
                 break;
             case "2":
+                System.out.println("请输入要删除的商品id");
+                int id =sc.nextInt();
+                adminDAO.deleteProduct(id);
                 break;
             case "3":
                 break;
