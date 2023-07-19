@@ -142,10 +142,21 @@ public class Controller {
                 adminDAO.deleteProduct(id);
                 break;
             case "3":
+                System.out.println("请输入要修改商品id");
+                int pid=sc.nextInt();
+                System.out.println("输入修改后的价格");
+                double ppr=sc.nextDouble();
+                System.out.println("输入修改后的库存");
+                int pst=sc.nextInt();
+                System.out.println("输入修改后的销量");
+                int psa=sc.nextInt();
+                adminDAO.changeProduct(pid,ppr,pst,psa);
                 break;
             case "4":
+                adminDAO.checkProduct();
                 break;
             case "5":
+                adminDAO.checkOrder();
                 break;
             case "6":
                 break;

@@ -5,7 +5,6 @@ import com.iweb.Until.DBUtil;
 import com.iweb.clazzs.Admin;
 import com.iweb.clazzs.Order;
 import com.iweb.clazzs.Product;
-import com.iweb.control.Controller;
 import com.iweb.view.View;
 
 import java.sql.Connection;
@@ -118,10 +117,10 @@ public class AdminDAOImpl implements AdminDAO {
         String sql1 = "delete from product where product_id=" + pid;
         try (Connection c = DBUtil.getConnection();
              PreparedStatement ps = c.prepareStatement(sql);
-             PreparedStatement ps1=c.prepareStatement(sql1)
+             PreparedStatement ps1 = c.prepareStatement(sql1)
         ) {
             ResultSet rs = ps.executeQuery();
-            boolean isExist=true;
+            boolean isExist = true;
             while (rs.next()) {
                 if (pid == rs.getInt(1)) {
                     ps1.execute();
@@ -130,7 +129,7 @@ public class AdminDAOImpl implements AdminDAO {
                     break;
                 }
             }
-            if(isExist) {
+            if (isExist) {
                 System.out.println("商品不存在");
             }
             View.adminLoginSuccess();
@@ -140,18 +139,95 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public void changeProduct(int pid) {
-
+    public void changeProduct(int pid, double pr, int st, int sa) {
+        String sql = "select product_id from product";
+        String sql1 = "update product set product_price=?,stock_num=?,sales_num=? where product_id=" + pid;
+        try (Connection c = DBUtil.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql);
+             PreparedStatement ps1 = c.prepareStatement(sql1)
+        ) {
+            ResultSet rs = ps.executeQuery();
+            boolean isExist = true;
+            while (rs.next()) {
+                if (pid == rs.getInt(1)) {
+                    ps1.setDouble(1, pr);
+                    ps1.setInt(2, st);
+                    ps1.setInt(3, sa);
+                    ps1.execute();
+                    System.out.println("修改成功");
+                    isExist = false;
+                    break;
+                }
+            }
+            if (isExist) {
+                System.out.println("商品不存在");
+            }
+            View.adminLoginSuccess();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Collection<Product> checkProduct() {
-        return null;
+        String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property order by sales_num desc limit 0,10";
+        List<Product> list = new ArrayList<>();
+        try {
+            Connection c = DBUtil.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_id(rs.getInt(1));
+                product.setProduct_name(rs.getString(2));
+                product.setProduct_price(rs.getDouble(3));
+                product.setStock_num(rs.getInt(4));
+                product.setSales_num(rs.getInt(5));
+                product.setProperty_id(rs.getInt(6));
+                product.setProperty_name(rs.getString(7));
+                product.setProperty_describe(rs.getString(8));
+                product.setAdmin_id(rs.getInt(9));
+                list.add(product);
+            }
+            for (Product p : list
+            ) {
+                System.out.println(p);
+            }
+            View.adminLoginSuccess();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list.isEmpty() ? null : list;
     }
 
     @Override
     public Collection<Order> checkOrder() {
-        return null;
+        String sql = "select * from orders";
+        List<Order> list = new ArrayList<>();
+        try {
+            Connection c = DBUtil.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrder_num(rs.getInt(1));
+                order.setProduct_id(rs.getInt(3));
+                order.setProduct_name(rs.getString(4));
+                order.setProduct_price(rs.getDouble(5));
+                order.setProduct_num(rs.getInt(6));
+                order.setOrder_state(rs.getString(7));
+                list.add(order);
+            }
+            for (Order o:list
+                 ) {
+                System.out.println(o);
+            }
+            View.adminLoginSuccess();
+        } catch (Exception e) {
+
+        }
+        return list.isEmpty()?null:list;
     }
 
     @Override

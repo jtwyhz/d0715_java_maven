@@ -35,16 +35,18 @@ public interface AdminDAO {
     /**
      * 删除商品信息
      *
-     * @param pid 要删除的商品id
+     * @param pid 删除的商品的id
      */
     void deleteProduct(int pid);
 
-    /**
-     * 修改商品信息
-     *
-     * @param pid 修改的商品的id
+
+    /**修改商品信息
+     * @param pid 要修改的商品id
+     * @param pr  修改价格
+     * @param st 修改库存
+     * @param sa 修改销量
      */
-    void changeProduct(int pid);
+    void changeProduct(int pid,double pr,int st,int sa);
 
     /**
      * 查看所有商品
