@@ -144,7 +144,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Collection<Product> lookProduct() {
         String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
-                ",product.property_id,property_name,property_describe,admin_id FROM product,property limit 0,5" ;
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property" ;
         List<Product> list = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -171,7 +171,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Collection<Product> lookProductForSaleNum() {
         String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
-                ",product.property_id,property_name,property_describe,admin_id FROM product,property order by sales_num desc limit 0,5 " ;
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property order by sales_num desc" ;
         List<Product> list = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement(sql);
