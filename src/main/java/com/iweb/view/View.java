@@ -26,6 +26,7 @@ public class View {
     //    提供接口实现类对象 调用方法
     static UserDAO userDAO = new UserDAOImpl();
     static AdminDAO adminDAO = new AdminDAOImpl();
+   public static User currentUser;
 
     //主界面
     public static void mainView() {
@@ -60,10 +61,11 @@ public class View {
         User user = new User();
         user.setUser_name(userName);
         user.setUser_password(userPassword);
+        user.setUser_id(1);
 //        判断是否登录成功
-        UserService.isUser(user);
-
-        userLoginSuccess(user);
+        currentUser=user;
+        UserService.isUser(currentUser);
+        userLoginSuccess(currentUser);
     }
 
     //    用户登录成功界面
@@ -76,7 +78,7 @@ public class View {
         System.out.println("4.订单信息");
         System.out.println("*****************");
         String key = sc.nextLine();
-        Controller.userSuccessController(key, user);
+        Controller.userSuccessController(key, currentUser);
     }
 
     // 是否充值余额
@@ -85,17 +87,19 @@ public class View {
         System.out.println("请选择是否充值");
         System.out.println("1.充值      2.返回");
         System.out.println("*****************");
+        String key=sc.nextLine();
+        userDAO.userCharge(user);
     }
 
     //查看商品信息方式
-    public static void checkProductMethod() {
+    public static void checkProductMethod(User user) {
         System.out.println("*****************");
         System.out.println("请选择你要查看商品的方式:");
         System.out.println("1.默认排序");
         System.out.println("2.按销量排序");
         System.out.println("*****************");
         String key = sc.nextLine();
-        Controller.checkProductController(key);
+        Controller.checkProductController(user,key);
 
     }
 

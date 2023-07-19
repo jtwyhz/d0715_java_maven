@@ -22,4 +22,6 @@ public interface AdminDAO {
      * @return 返回所有管理员集合
      */
     Collection<Admin> listAllAdmin();
+
+
 }

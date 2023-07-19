@@ -28,9 +28,10 @@ public class AppTest
 //        Controller.checkProductController("2");
 //        View.checkProductMethod();
 //        Controller.checkProductController("1");
-       System.out.println( userDAO.lookProductForSaleNum() );
+//       System.out.println( userDAO.lookProductForSaleNum() );
 //        System.out.println(userDAO.checkCar(new User(1)));
 //        System.out.println(userDAO.checkOrder(new User(1)));
-        userDAO.userCharge(new User(1));
+//        userDAO.userCharge(new User(1));
+//        Controller.checkProductController("1");
     }
 }

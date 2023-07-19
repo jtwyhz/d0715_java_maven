@@ -104,14 +104,14 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void checkMoney(User user) {
-        String sql = "select * from user where user_name='?'";
-        try (
-                PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, user.getUser_name());
+        String sql = "select * from user where user_id=?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, user.getUser_id());
             ResultSet rs = ps.executeQuery();
-            rs.next();
+            while (rs.next()){
             double money = rs.getDouble("money");
-            System.out.println("余额为:" + money);
+            System.out.println("余额为:" + money);}
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,7 +144,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Collection<Product> lookProduct() {
         String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
-                ",product.property_id,property_name,property_describe,admin_id FROM product,property" ;
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property limit 0,10" ;
         List<Product> list = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -171,7 +171,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Collection<Product> lookProductForSaleNum() {
         String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
-                ",product.property_id,property_name,property_describe,admin_id FROM product,property order by sales_num desc" ;
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property order by sales_num desc limit 0,10" ;
         List<Product> list = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -225,7 +225,7 @@ public class UserDAOImpl implements UserDAO {
                 preparedStatement.execute();
             }
             System.out.println("添加完成！");
-            System.out.println("请选择：1.继续添加  2.查看购物车 3.浏览商品");
+//            System.out.println("请选择：1.继续添加  2.查看购物车 3.浏览商品");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -240,7 +240,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setInt(2,product_id);
             preparedStatement.execute();
             System.out.println("删除成功！");
-            System.out.println("请选择：1.浏览商品  2.查看购物车  3.继续删除");
+//            System.out.println("请选择：1.浏览商品  2.查看购物车  3.继续删除");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -318,7 +318,6 @@ public class UserDAOImpl implements UserDAO {
         }catch (Exception e){
 
         }
-
         return order;
     }
 
