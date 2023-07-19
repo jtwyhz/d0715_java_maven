@@ -20,4 +20,8 @@ public class Product {
     private double product_price;
     private int stock_num;
     private int sales_num;
+    private int property_id;
+    private String property_name;
+    private String property_describe;
+    private int admin_id;
 }

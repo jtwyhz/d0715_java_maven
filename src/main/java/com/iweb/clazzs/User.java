@@ -50,4 +50,12 @@ public class User {
         this.user_password = user_password;
         this.user_phone = user_phone;
     }
+
+    public User(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public User(int user_id) {
+        this.user_id = user_id;
+    }
 }

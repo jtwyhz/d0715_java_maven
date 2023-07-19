@@ -3,6 +3,7 @@ package com.iweb.control;
 
 import com.iweb.DAO.UserDAO;
 import com.iweb.DAO.impl.UserDAOImpl;
+import com.iweb.clazzs.Product;
 import com.iweb.clazzs.User;
 import com.iweb.view.View;
 
@@ -14,7 +15,8 @@ import com.iweb.view.View;
 
 
 public class Controller {
-    static UserDAO userDAO=new UserDAOImpl();
+    static UserDAO userDAO = new UserDAOImpl();
+
     public static void mainController(String key) {
         switch (key) {
             case "1":
@@ -55,12 +57,13 @@ public class Controller {
         }
     }
 
-    public static void userSuccessController(String key , User user){
-        switch (key){
+    public static void userSuccessController(String key, User user) {
+        switch (key) {
             case "1":
                 userDAO.checkMoney(user);
                 break;
             case "2":
+                View.checkProductMethod();
                 break;
             case "3":
                 break;
@@ -70,8 +73,21 @@ public class Controller {
                 break;
         }
     }
-    public static void adminSuccessController(String key){
-        switch (key){
+
+    public static void checkProductController(String key) {
+        switch (key) {
+            case "1":
+                System.out.println(userDAO.lookProduct());
+                break;
+            case "2":
+                System.out.println(userDAO.lookProductForSaleNum());
+            default:
+                break;
+        }
+    }
+
+    public static void adminSuccessController(String key) {
+        switch (key) {
             case "1":
                 break;
             case "2":

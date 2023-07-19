@@ -1,8 +1,6 @@
 package com.iweb.view;
 
 
-
-
 import com.iweb.DAO.impl.AdminDAOImpl;
 import com.iweb.DAO.UserDAO;
 import com.iweb.DAO.impl.UserDAOImpl;
@@ -32,7 +30,7 @@ public class View {
     //主界面
     public static void mainView() {
         System.out.println("*****************");
-        System.out.println("欢迎来到艾瑞商城");
+        System.out.println("欢迎来到IWEB商城");
         System.out.println("请选择登录或者注册新用户:");
         System.out.println("1.登录");
         System.out.println("2.注册");
@@ -77,8 +75,28 @@ public class View {
         System.out.println("3.购物车");
         System.out.println("4.订单信息");
         System.out.println("*****************");
-        String key=sc.nextLine();
-        Controller.userSuccessController(key,user);
+        String key = sc.nextLine();
+        Controller.userSuccessController(key, user);
+    }
+
+    // 是否充值余额
+    public static void userCharge(User user) {
+        System.out.println("*****************");
+        System.out.println("请选择是否充值");
+        System.out.println("1.充值      2.返回");
+        System.out.println("*****************");
+    }
+
+    //查看商品信息方式
+    public static void checkProductMethod() {
+        System.out.println("*****************");
+        System.out.println("请选择你要查看商品的方式:");
+        System.out.println("1.默认排序");
+        System.out.println("2.按销量排序");
+        System.out.println("*****************");
+        String key = sc.nextLine();
+        Controller.checkProductController(key);
+
     }
 
     //管理员登录界面
@@ -107,7 +125,7 @@ public class View {
         System.out.println("5.查看订单信息");
         System.out.println("6.修改订单信息");
         System.out.println("*****************");
-        String key=sc.nextLine();
+        String key = sc.nextLine();
         Controller.adminSuccessController(key);
     }
 

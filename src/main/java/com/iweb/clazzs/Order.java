@@ -16,6 +16,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class Order {
     private int order_num;
+    private int product_id;
+    private String product_name;
+    private double product_price;
+    private int product_num;
     private double order_sum_price;
     private String order_state;
 }

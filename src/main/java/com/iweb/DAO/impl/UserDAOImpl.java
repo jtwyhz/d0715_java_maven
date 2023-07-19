@@ -16,6 +16,7 @@ import java.util.Scanner;
  * @date 2023/7/17 18:47
  */
 public class UserDAOImpl implements UserDAO {
+
     Connection connection;
     PreparedStatement preparedStatement;
     Scanner scanner = new Scanner(System.in);
@@ -117,19 +118,81 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public ShopCar selectCar(User user) {
-        return null;
+    public ShopCar checkCar(User user) {
+        String sql="select * from shopcar where user_id=?";
+        ShopCar shopCar = new ShopCar();
+        try{
+            preparedStatement =connection.prepareStatement(sql);
+            preparedStatement.setInt(1,user.getUser_id());
+            ResultSet rs= preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                shopCar.setShopCar_id(rs.getInt(1));
+                shopCar.setUser_id(rs.getInt(2));
+                shopCar.setProduct_id(rs.getInt(3));
+                shopCar.setProduct_price(rs.getDouble(4));
+                shopCar.setProduct_num(rs.getInt(5));
+                shopCar.setSum_price(rs.getDouble(6));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return shopCar;
     }
 
 
     @Override
     public Collection<Product> lookProduct() {
-        return null;
+        String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property limit 0,5" ;
+        List<Product> list = new ArrayList<>();
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_id(rs.getInt(1));
+                product.setProduct_name(rs.getString(2));
+                product.setProduct_price(rs.getDouble(3));
+                product.setStock_num(rs.getInt(4));
+                product.setSales_num(rs.getInt(5));
+                product.setProperty_id(rs.getInt(6));
+                product.setProperty_name(rs.getString(7));
+                product.setProperty_describe(rs.getString(8));
+                product.setAdmin_id(rs.getInt(9));
+                list.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list.isEmpty() ? null : list;
     }
 
     @Override
     public Collection<Product> lookProductForSaleNum() {
-        return null;
+        String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property order by sales_num desc limit 0,5 " ;
+        List<Product> list = new ArrayList<>();
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProduct_id(rs.getInt(1));
+                product.setProduct_name(rs.getString(2));
+                product.setProduct_price(rs.getDouble(3));
+                product.setStock_num(rs.getInt(4));
+                product.setSales_num(rs.getInt(5));
+                product.setProperty_id(rs.getInt(6));
+                product.setProperty_name(rs.getString(7));
+                product.setProperty_describe(rs.getString(8));
+                product.setAdmin_id(rs.getInt(9));
+                list.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list.isEmpty() ? null : list;
     }
 
     @Override
@@ -238,8 +301,25 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Order selectOrder(User user) {
-        return null;
+    public Order checkOrder(User user) {
+        String sql="select * from orders where user_id=?";
+        Order order=new Order();
+        try{
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setInt(1,user.getUser_id());
+            ResultSet rs=preparedStatement.executeQuery();
+            rs.next();
+             order.setOrder_num(rs.getInt(1));
+             order.setProduct_id(rs.getInt(3));
+             order.setProduct_name(rs.getString(4));
+             order.setProduct_price(rs.getDouble(5));
+             order.setProduct_num(rs.getInt(6));
+             order.setOrder_state(rs.getString(7));
+        }catch (Exception e){
+
+        }
+
+        return order;
     }
 
 
@@ -329,5 +409,35 @@ public class UserDAOImpl implements UserDAO {
             throwables.printStackTrace();
         }
 
+    }
+     @Override
+    public  void userCharge(User user) {
+        String sql = "select * from user where user_id=?";
+        try (Connection c = DBUtil.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1,user.getUser_id());
+            ResultSet rs=ps.executeQuery();
+            rs.next();
+            double money=rs.getDouble("money");
+            System.out.println("您当前的余额为："+money);
+            System.out.println("充值金额：");
+            Scanner sc=new Scanner(System.in);
+            double inMoney=sc.nextDouble();
+            if (inMoney<0){
+                System.out.println("请输入正确的金额");
+                userCharge(user);
+            }else {
+                String sql1="update user set money=money+"+inMoney+"where user_id=?";
+                PreparedStatement ps1=connection.prepareStatement(sql1);
+                ps1.setInt(1,user.getUser_id());
+                ps1.execute();
+                System.out.println("充值成功");
+                money+=inMoney;
+                System.out.println("您当前的余额为："+money);
+                View.userCharge(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

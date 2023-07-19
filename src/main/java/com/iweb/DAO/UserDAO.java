@@ -41,7 +41,7 @@ public interface UserDAO {
      * @param user 用户
      * @return 返回某个用户的购物车信息
      */
-    ShopCar selectCar(User user);
+    ShopCar checkCar(User user);
 
     /**查看所有商品（系统推荐），
      * @return 返回商品集合，
@@ -90,10 +90,18 @@ public interface UserDAO {
      * @param user 用户
      * @return 返回订单的所有信息
      */
-    Order selectOrder(User user);
+    Order checkOrder(User user);
 
     /**购物车结算，生成订单
      * @param user 用户
      */
     void addOrder(User user);
+
+    /**
+     * 用户登录成功后
+     * 选择充值页面
+     *
+     * @param user 当前登陆的用户
+     */
+    void userCharge(User user);
 }

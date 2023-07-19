@@ -15,7 +15,11 @@ import lombok.NoArgsConstructor;
 @Data
 public class ShopCar {
     private int shopCar_id;
+    private int user_id;
+    private int product_id;
+    private double product_price;
     private int product_num;
-    private String sum_price;
+    private double sum_price;
+
 
 }
