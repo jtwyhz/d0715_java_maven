@@ -122,7 +122,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Collection<Product> lookProduct() {
-        return null;
+        return  null;
     }
 
     @Override
