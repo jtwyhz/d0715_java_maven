@@ -2,11 +2,6 @@ package com.iweb;
 
 import static org.junit.Assert.assertTrue;
 
-import com.iweb.pro_test.DAO.UserDao;
-import com.iweb.pro_test.DAO.UserDaoImpl;
-import com.iweb.pro_test.clazzs.Order;
-import com.iweb.pro_test.clazzs.Product;
-import com.iweb.pro_test.clazzs.User;
 import org.junit.Test;
 
 /**
