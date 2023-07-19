@@ -76,6 +76,7 @@ public class View {
         System.out.println("2.商品信息");
         System.out.println("3.购物车");
         System.out.println("4.订单信息");
+        System.out.println("5.返回主界面");
         System.out.println("*****************");
         String key = sc.nextLine();
         Controller.userSuccessController(key, currentUser);
@@ -88,7 +89,7 @@ public class View {
         System.out.println("1.充值      2.返回");
         System.out.println("*****************");
         String key=sc.nextLine();
-        userDAO.userCharge(user);
+        Controller.userChargeController(key,user);
     }
 
     //查看商品信息方式
@@ -128,6 +129,7 @@ public class View {
         System.out.println("4.查看商品信息");
         System.out.println("5.查看订单信息");
         System.out.println("6.修改订单信息");
+        System.out.println("7.返回主界面");
         System.out.println("*****************");
         String key = sc.nextLine();
         Controller.adminSuccessController(key);

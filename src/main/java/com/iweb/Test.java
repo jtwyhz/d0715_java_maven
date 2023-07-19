@@ -21,7 +21,7 @@ import java.util.Collection;
 
 public class Test {
     public static void main(String[] args) {
-//        View.mainView();
+        View.mainView();
 //        User user=new User(1);
 //        UserDAO userDAO=new UserDAOImpl();
 //        System.out.println(userDAO.checkOrder(user));
@@ -35,6 +35,6 @@ public class Test {
 //        product.setAdmin_id(3);
 //        AdminDAO adminDAO=new AdminDAOImpl();
 //        adminDAO.addProduct(product);
-        Controller.adminSuccessController("6");
+//        Controller.adminSuccessController("6");
     }
 }

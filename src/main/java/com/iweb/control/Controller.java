@@ -66,7 +66,7 @@ public class Controller {
     public static void userSuccessController(String key, User user) {
         switch (key) {
             case "1":
-                userDAO.userCharge(user);
+                userDAO.checkMoney(user);
                 break;
             case "2":
                 View.checkProductMethod(user);
@@ -77,11 +77,22 @@ public class Controller {
             case "4":
                 System.out.println(userDAO.checkOrder(user));
                 break;
+            case "5":
+                View.mainView();
             default:
                 break;
         }
     }
-
+public static void userChargeController(String key,User user){
+        switch (key){
+            case "1":
+                userDAO.userCharge(user);
+            case "2":
+                View.userLoginSuccess(user);
+            default:
+                break;
+        }
+}
     public static void checkProductController(User user,String key) {
         switch (key) {
             case "1":
@@ -111,6 +122,7 @@ public class Controller {
                      ) {
                     System.out.println(p);
                 }
+                View.userLoginSuccess(user);
                 break;
             default:
                 break;
@@ -165,6 +177,8 @@ public class Controller {
                 String state=sc.next();
                 adminDAO.changeOrder(oid,state);
                 break;
+            case "7":
+                View.mainView();
             default:
                 break;
         }
