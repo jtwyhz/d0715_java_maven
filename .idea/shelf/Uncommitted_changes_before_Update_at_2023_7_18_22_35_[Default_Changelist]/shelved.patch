@@ -1,0 +1,537 @@
+Index: src/test/java/com/iweb/AppTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.iweb;\r\n\r\nimport static org.junit.Assert.assertTrue;\r\n\r\nimport org.junit.Test;\r\n\r\n/**\r\n * Unit test for simple App.\r\n */\r\npublic class AppTest \r\n{\r\n    /**\r\n     * Rigorous Test :-)\r\n     */\r\n    @Test\r\n    public void shouldAnswerWithTrue()\r\n    {\r\n        assertTrue( true );\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/test/java/com/iweb/AppTest.java	(revision 08a2577d06b29528749961cb76f5d64fa4362cbc)
++++ src/test/java/com/iweb/AppTest.java	(date 1689689389553)
+@@ -2,6 +2,11 @@
+ 
+ import static org.junit.Assert.assertTrue;
+ 
++import com.iweb.pro_test.DAO.UserDao;
++import com.iweb.pro_test.DAO.UserDaoImpl;
++import com.iweb.pro_test.clazzs.Order;
++import com.iweb.pro_test.clazzs.Product;
++import com.iweb.pro_test.clazzs.User;
+ import org.junit.Test;
+ 
+ /**
+@@ -12,9 +17,10 @@
+     /**
+      * Rigorous Test :-)
+      */
++
+     @Test
+-    public void shouldAnswerWithTrue()
+-    {
+-        assertTrue( true );
++    public void Settle(){
++//        UserDao userDao=new UserDaoImpl();
++//        userDao.addOrder(new User("小明","123","383240",1000.00));
+     }
+ }
+Index: src/main/java/com/iweb/pro_test/DAO/UserDaoImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.iweb.pro_test.DAO;\r\n\r\nimport com.iweb.pro_test.clazzs.*;\r\nimport com.iweb.pro_test.Until.DBUtil;\r\nimport com.iweb.pro_test.view.View;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.util.Collection;\r\nimport java.util.Scanner;\r\n\r\n/**\r\n * @author tang\r\n * @date 2023/7/17 18:47\r\n */\r\npublic class UserDaoImpl implements UserDao {\r\n    Connection connection;\r\n    PreparedStatement preparedStatement;\r\n    Scanner scanner = new Scanner(System.in);\r\n\r\n    @Override\r\n    public void insert(User user) {\r\n\r\n    }\r\n\r\n    {\r\n        try {\r\n            connection = DBUtil.getConnection();\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public User selectUser(String user_name) {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public User selectUser(User user) {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public ShopCar selectCar(User user) {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public Collection<Product> lookProduct() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public Collection<Product> lookProductForSaleNum() {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public void addProductToCar(User user, Product product) {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void deleteProductFromCar(User user, Product product) {\r\n\r\n    }\r\n\r\n    @Override\r\n    public Collection<Address> selectAddress(User user) {\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public void insertAddress(User user, Address address) {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void deleteAddress(User user, Address address) {\r\n\r\n    }\r\n\r\n    @Override\r\n    public Order selectOrder(User user) {\r\n        return null;\r\n    }\r\n\r\n\r\n    @Override\r\n    public void addOrder(User user, Order order,Product product) {\r\n        String selectSumPrice = \"select sum_price from shopcar\";\r\n        String selectProductNum=\"select count(*) num from shopcar\";\r\n        String selectMoney = \"select money from user where user_id=?\";\r\n        String insertToOrder = \"insert into order(user_id,product_id,product_name,product_price,\" +\r\n                \"product_num,order_sum_price,order_state) values (?,?,?,?,?,?,?)\";\r\n        double sum_price = 0.0;\r\n        double money = 0.0;\r\n        int productNum=0;\r\n        try {\r\n            preparedStatement = connection.prepareStatement(selectSumPrice);\r\n            ResultSet sumPrice = preparedStatement.executeQuery();\r\n            while (sumPrice.next()) {\r\n                sum_price = sumPrice.getDouble(\"sum_price\");\r\n            }  preparedStatement = connection.prepareStatement(selectProductNum);\r\n            ResultSet num = preparedStatement.executeQuery();\r\n            while (sumPrice.next()) {\r\n                productNum = sumPrice.getInt(\"num\");\r\n            }\r\n            preparedStatement = connection.prepareStatement(selectMoney);\r\n            preparedStatement.setInt(1,user.getUser_id());\r\n            ResultSet reMoney = preparedStatement.executeQuery();\r\n            while (reMoney.next()) {\r\n                money = reMoney.getDouble(\"money\");\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        System.out.println(\"您当前账户余额为：\"+money+\"元\");\r\n        System.out.println(\"您需要支付的商品总金额为：\" + sum_price + \"元，是否确认支付？y/n\");\r\n        if (money<sum_price){\r\n            System.out.println(\"当前余额不足，\");\r\n        }\r\n        if (scanner.nextLine().equals(\"y\")) {\r\n            System.out.println(\"支付成功！\");\r\n            try {\r\n                preparedStatement = connection.prepareStatement(insertToOrder);\r\n//                设置对应参数\r\n                preparedStatement.setInt(1, user.getUser_id());\r\n                preparedStatement.setInt(2, product.getProduct_id());\r\n                preparedStatement.setString(3, product.getProduct_name());\r\n                preparedStatement.setDouble(4,product.getProduct_price());\r\n                preparedStatement.setInt(5, productNum);\r\n                preparedStatement.setDouble(6, sum_price);\r\n                preparedStatement.setString(7, \"待发货\");\r\n                preparedStatement.execute();\r\n                System.out.println(\"即将返回首页······\");\r\n                try {\r\n                    Thread.sleep(1000);\r\n                } catch (InterruptedException e) {\r\n                    e.printStackTrace();\r\n                }\r\n//                跳转首页\r\n                View.shopping();\r\n\r\n            } catch (SQLException throwables) {\r\n                throwables.printStackTrace();\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/DAO/UserDaoImpl.java	(revision 08a2577d06b29528749961cb76f5d64fa4362cbc)
++++ src/main/java/com/iweb/pro_test/DAO/UserDaoImpl.java	(date 1689689986018)
+@@ -4,10 +4,7 @@
+ import com.iweb.pro_test.Until.DBUtil;
+ import com.iweb.pro_test.view.View;
+ 
+-import java.sql.Connection;
+-import java.sql.PreparedStatement;
+-import java.sql.ResultSet;
+-import java.sql.SQLException;
++import java.sql.*;
+ import java.util.Collection;
+ import java.util.Scanner;
+ 
+@@ -19,10 +16,11 @@
+     Connection connection;
+     PreparedStatement preparedStatement;
+     Scanner scanner = new Scanner(System.in);
++    private Object Savepoint;
+ 
+     @Override
+-    public void insert(User user) {
+-
++    public void updateUserMoney(User user) {
++        
+     }
+ 
+     {
+@@ -33,6 +31,11 @@
+         }
+     }
+ 
++    @Override
++    public void insert(User user) {
++
++    }
++
+     @Override
+     public User selectUser(String user_name) {
+         return null;
+@@ -90,65 +93,91 @@
+ 
+ 
+     @Override
+-    public void addOrder(User user, Order order,Product product) {
+-        String selectSumPrice = "select sum_price from shopcar";
+-        String selectProductNum="select count(*) num from shopcar";
++    public void addOrder(User user) {
++//        String selectSumPrice = "select sum_price from shopcar";
++//        String selectProductNum="select count(*) num from shopcar";
++        String selectProduct_name = "select product_name from product where product_id=?";
++        String selectProduct = "select * from shopcar where user_id=?";
+         String selectMoney = "select money from user where user_id=?";
+-        String insertToOrder = "insert into order(user_id,product_id,product_name,product_price," +
++        String insertToOrder = "insert into orders(user_id,product_id,product_name,product_price," +
+                 "product_num,order_sum_price,order_state) values (?,?,?,?,?,?,?)";
+         double sum_price = 0.0;
+         double money = 0.0;
+-        int productNum=0;
+         try {
+-            preparedStatement = connection.prepareStatement(selectSumPrice);
+-            ResultSet sumPrice = preparedStatement.executeQuery();
+-            while (sumPrice.next()) {
+-                sum_price = sumPrice.getDouble("sum_price");
+-            }  preparedStatement = connection.prepareStatement(selectProductNum);
+-            ResultSet num = preparedStatement.executeQuery();
+-            while (sumPrice.next()) {
+-                productNum = sumPrice.getInt("num");
+-            }
++            //            查看用户账户余额
+             preparedStatement = connection.prepareStatement(selectMoney);
+-            preparedStatement.setInt(1,user.getUser_id());
++            preparedStatement.setInt(1, user.getUser_id());
+             ResultSet reMoney = preparedStatement.executeQuery();
+             while (reMoney.next()) {
+                 money = reMoney.getDouble("money");
+             }
++            preparedStatement = connection.prepareStatement(selectProduct);
++            preparedStatement.setInt(1,user.getUser_id());
++            //查询购物车中所有商品
++            ResultSet num = preparedStatement.executeQuery();
++            int product_id = 0;
++            String product_name = "";
++
++//            遍历每一件商品
++           Savepoint savepoint= connection.setSavepoint("ins");
++            while (num.next()) {
++                sum_price = sum_price + num.getDouble(6);
++                product_id = num.getInt(3);
++                preparedStatement = connection.prepareStatement(selectProduct_name);
++                preparedStatement.setInt(1,num.getInt("product_id"));
++                ResultSet p_name = preparedStatement.executeQuery();
++//                获得该商品的商品名
++                while (p_name.next()) {
++                    product_name = p_name.getString(1);
++                }
++                preparedStatement = connection.prepareStatement(insertToOrder);
++                insertToOrder(user.getUser_id(), product_id, product_name, num.getDouble(4), num.getInt(5),
++                        num.getDouble(6), "待发货");
++            }
++
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+ 
+-        System.out.println("您当前账户余额为："+money+"元");
++        System.out.println("您当前账户余额为：" + money + "元");
+         System.out.println("您需要支付的商品总金额为：" + sum_price + "元，是否确认支付？y/n");
+-        if (money<sum_price){
+-            System.out.println("当前余额不足，");
++        if (money < sum_price) {
++            System.out.println("当前余额不足");
++            try {
++                connection.rollback();
++            } catch (SQLException throwables) {
++                throwables.printStackTrace();
++            }
+         }
+         if (scanner.nextLine().equals("y")) {
+             System.out.println("支付成功！");
+-            try {
+-                preparedStatement = connection.prepareStatement(insertToOrder);
+-//                设置对应参数
+-                preparedStatement.setInt(1, user.getUser_id());
+-                preparedStatement.setInt(2, product.getProduct_id());
+-                preparedStatement.setString(3, product.getProduct_name());
+-                preparedStatement.setDouble(4,product.getProduct_price());
+-                preparedStatement.setInt(5, productNum);
+-                preparedStatement.setDouble(6, sum_price);
+-                preparedStatement.setString(7, "待发货");
+-                preparedStatement.execute();
+-                System.out.println("即将返回首页······");
+-                try {
+-                    Thread.sleep(1000);
+-                } catch (InterruptedException e) {
+-                    e.printStackTrace();
+-                }
+-//                跳转首页
+-                View.shopping();
++//            更新账户余额
++            user.setMoney(user.getMoney() - sum_price);
++            updateUserMoney(user);
++            System.out.println("即将返回首页······");
++            try {
++                connection.close();
++                Thread.sleep(1000);
++            } catch (Exception e) {
++                e.printStackTrace();
++            }
++            View.shopping();
++        }
++    }
+ 
+-            } catch (SQLException throwables) {
+-                throwables.printStackTrace();
+-            }
++    public void insertToOrder(int user_id, int product_id, String product_name, double product_price, int productNum, double sum_price, String state) {
++        try {
++            preparedStatement.setInt(1, user_id);
++            preparedStatement.setInt(2, product_id);
++            preparedStatement.setString(3, product_name);
++            preparedStatement.setDouble(4, product_price);
++            preparedStatement.setInt(5, productNum);
++            preparedStatement.setDouble(6, sum_price);
++            preparedStatement.setString(7, state);
++            preparedStatement.execute();
++        } catch (Exception throwables) {
++            throwables.printStackTrace();
+         }
++
+     }
+ }
+Index: src/main/java/com/iweb/pro_test/DAO/UserDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.iweb.pro_test.DAO;\r\nimport com.iweb.pro_test.clazzs.*;\r\n\r\n\r\nimport java.util.Collection;\r\n\r\n/**\r\n * @author tang\r\n * @date 2023/7/17 18:47\r\n */\r\npublic interface UserDao {\r\n    /**用户注册\r\n     * @param user 用户\r\n     */\r\n    void insert(User user);\r\n\r\n    /**包含用户名，无法注册，登录则验证密码\r\n     * @param user_name 通过用户名查找是否存在该用户\r\n     * @return 返回所有用户id结果集\r\n     */\r\n    User selectUser(String user_name);\r\n\r\n    /**查看用户信息\r\n     * @param user 用户\r\n     * @return 返回单个用户全部信息\r\n     */\r\n    User selectUser(User user);\r\n\r\n    /**查看购物车\r\n     * @param user 用户\r\n     * @return 返回某个用户的购物车信息\r\n     */\r\n    ShopCar selectCar(User user);\r\n\r\n    /**查看所有商品（系统推荐），\r\n     * @return 返回商品集合，\r\n     */\r\n    Collection<Product> lookProduct();\r\n\r\n    /**按照商品销量进行降序排序展示\r\n     * @return 所有商品\r\n     */\r\n    Collection<Product> lookProductForSaleNum();\r\n\r\n    /**将商品添加到购物车\r\n     * @param user 为哪个用户的购物车添加\r\n     * @param product 某件商品\r\n     */\r\n    void addProductToCar(User user, Product product);\r\n\r\n    /**将商品从购物车中删除\r\n     * @param user 为哪个用户的购物车添加\r\n     * @param product 某件商品，要求用户提供商品id\r\n     */\r\n    void deleteProductFromCar(User user, Product product);\r\n\r\n    /** 查看地址\r\n     * @param user 用户\r\n     * @return 返回某个用户的所有地址\r\n     */\r\n    Collection<Address> selectAddress(User user);\r\n\r\n    /**需要添加的地址\r\n     * @param user 某个用户\r\n     * @param address 地址\r\n     */\r\n    void insertAddress(User user, Address address);\r\n\r\n    /**需要删除的用户地址，要求用户提供地址id\r\n     * @param user 用户\r\n     * @param address 地址\r\n     */\r\n    void deleteAddress(User user, Address address);\r\n\r\n    /**返回用户的订单信息\r\n     * @param user 用户\r\n     * @return 返回订单的所有信息\r\n     */\r\n    Order selectOrder(User user);\r\n\r\n    /**购物车结算，生成订单\r\n     * @param user 用户\r\n     * @param order 订单\r\n     * @param product 商品\r\n     */\r\n    void addOrder(User user, Order order,Product product);\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/DAO/UserDao.java	(revision 08a2577d06b29528749961cb76f5d64fa4362cbc)
++++ src/main/java/com/iweb/pro_test/DAO/UserDao.java	(date 1689689986038)
+@@ -9,6 +9,10 @@
+  * @date 2023/7/17 18:47
+  */
+ public interface UserDao {
++    /**用户购买商品后更新余额
++     * @param user 用户
++     */
++    void updateUserMoney(User user);
+     /**用户注册
+      * @param user 用户
+      */
+@@ -80,10 +84,8 @@
+ 
+     /**购物车结算，生成订单
+      * @param user 用户
+-     * @param order 订单
+-     * @param product 商品
+      */
+-    void addOrder(User user, Order order,Product product);
++    void addOrder(User user);
+ 
+ 
+ }
+Index: src/main/java/com/iweb/pro_test/clazzs/Address.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/clazzs/Address.java	(date 1689667042535)
++++ src/main/java/com/iweb/pro_test/clazzs/Address.java	(date 1689667042535)
+@@ -0,0 +1,19 @@
++package com.iweb.pro_test.clazzs;
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++/**
++ * @author tang
++ * @date 2023/7/18 15:55
++ */
++@AllArgsConstructor
++@Data
++@NoArgsConstructor
++public class Address {
++    private int user_id;
++    private int address_id;
++    private String detail;
++
++}
+Index: src/main/java/com/iweb/pro_test/clazzs/Property.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/clazzs/Property.java	(date 1689664256214)
++++ src/main/java/com/iweb/pro_test/clazzs/Property.java	(date 1689664256214)
+@@ -0,0 +1,21 @@
++package com.iweb.pro_test.clazzs;
++
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++/**
++ * @Author 小火煮粥
++ * @date 2023/7/18 9:02
++ * @WeChat xhzz211423
++ */
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Data
++public class Property {
++    private int property_id;
++    private String property_name;
++    private String property_describe;
++}
+Index: src/main/java/com/iweb/pro_test/clazzs/Catalog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/clazzs/Catalog.java	(date 1689664256309)
++++ src/main/java/com/iweb/pro_test/clazzs/Catalog.java	(date 1689664256309)
+@@ -0,0 +1,20 @@
++package com.iweb.pro_test.clazzs;
++
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++/**
++ * @Author 小火煮粥
++ * @date 2023/7/18 8:55
++ * @WeChat xhzz211423
++ */
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Data
++public class Catalog {
++    private int catalog_id;
++
++}
+Index: src/main/java/com/iweb/pro_test/clazzs/Product.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/clazzs/Product.java	(date 1689664256204)
++++ src/main/java/com/iweb/pro_test/clazzs/Product.java	(date 1689664256204)
+@@ -0,0 +1,23 @@
++package com.iweb.pro_test.clazzs;
++
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++/**
++ * @Author 小火煮粥
++ * @date 2023/7/18 8:57
++ * @WeChat xhzz211423
++ */
++
++@Data
++@NoArgsConstructor
++@AllArgsConstructor
++public class Product {
++    private int product_id;
++    private String product_name;
++    private double product_price;
++    private int stock_num;
++    private int sales_num;
++}
+Index: src/main/java/com/iweb/pro_test/clazzs/ShopCar.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/clazzs/ShopCar.java	(date 1689664256247)
++++ src/main/java/com/iweb/pro_test/clazzs/ShopCar.java	(date 1689664256247)
+@@ -0,0 +1,22 @@
++package com.iweb.pro_test.clazzs;
++
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++/**
++ * @Author 小火煮粥
++ * @date 2023/7/18 9:18
++ * @WeChat xhzz211423
++ */
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Data
++public class ShopCar {
++    private int shopCar_id;
++    private String sum_price;
++
++
++}
+Index: .idea/sqldialects.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/sqldialects.xml	(date 1689687285924)
++++ .idea/sqldialects.xml	(date 1689687285924)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="SqlDialectMappings">
++    <file url="file://$PROJECT_DIR$/src/main/java/com/iweb/pro_test/DAO/UserDaoImpl.java" dialect="ClickHouse" />
++  </component>
++</project>
+\ No newline at end of file
+Index: src/main/java/com/iweb/pro_test/clazzs/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/clazzs/User.java	(date 1689689354768)
++++ src/main/java/com/iweb/pro_test/clazzs/User.java	(date 1689689354768)
+@@ -0,0 +1,53 @@
++package com.iweb.pro_test.clazzs;
++
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++/**
++ * @Author 小火煮粥
++ * @date 2023/7/18 8:22
++ * @WeChat xhzz211423
++ */
++
++@AllArgsConstructor
++@NoArgsConstructor
++@Data
++public class User {
++    private int user_id;
++    private String user_name;
++    private String user_password;
++    private String user_address;
++    private String user_phone;
++    private double money;
++
++    public User(String user_name, String user_password, String user_address, String user_phone, double money) {
++        this.user_name = user_name;
++        this.user_password = user_password;
++        this.user_address = user_address;
++        this.user_phone = user_phone;
++        this.money = money;
++    }
++
++    public User(int user_id,String user_name, String user_password, String user_phone, double money) {
++        this.user_id=user_id;
++        this.user_name = user_name;
++        this.user_password = user_password;
++        this.user_phone = user_phone;
++        this.money = money;
++    }
++
++    public User(String user_name, String user_password, String user_address, String user_phone) {
++        this.user_name = user_name;
++        this.user_password = user_password;
++        this.user_address = user_address;
++        this.user_phone = user_phone;
++    }
++
++    public User(String user_name, String user_password, String user_phone) {
++        this.user_name = user_name;
++        this.user_password = user_password;
++        this.user_phone = user_phone;
++    }
++}
+Index: src/main/java/com/iweb/pro_test/clazzs/Admin.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/clazzs/Admin.java	(date 1689664256295)
++++ src/main/java/com/iweb/pro_test/clazzs/Admin.java	(date 1689664256295)
+@@ -0,0 +1,33 @@
++package com.iweb.pro_test.clazzs;
++
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++/**
++ * @Author 小火煮粥
++ * @date 2023/7/18 8:34
++ * @WeChat xhzz211423
++ */
++
++@Data
++@NoArgsConstructor
++@AllArgsConstructor
++public class Admin {
++    private int admin_id;
++    private String admin_name;
++    private String admin_password;
++    private int admin_phone;
++
++    public Admin(String admin_name, String admin_password, int admin_phone) {
++        this.admin_name = admin_name;
++        this.admin_password = admin_password;
++        this.admin_phone = admin_phone;
++    }
++
++    public Admin(String admin_name, String admin_password) {
++        this.admin_name = admin_name;
++        this.admin_password = admin_password;
++    }
++}
+Index: src/main/java/com/iweb/pro_test/clazzs/Order.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/iweb/pro_test/clazzs/Order.java	(date 1689664256236)
++++ src/main/java/com/iweb/pro_test/clazzs/Order.java	(date 1689664256236)
+@@ -0,0 +1,21 @@
++package com.iweb.pro_test.clazzs;
++
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++/**
++ * @Author 小火煮粥
++ * @date 2023/7/18 9:06
++ * @WeChat xhzz211423
++ */
++
++@NoArgsConstructor
++@AllArgsConstructor
++@Data
++public class Order {
++    private int order_num;
++    private double order_sum_price;
++    private String order_state;
++}

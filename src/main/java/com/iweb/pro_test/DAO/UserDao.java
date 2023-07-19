@@ -1,6 +1,7 @@
 package com.iweb.pro_test.DAO;
-import com.iweb.pro_test.entry.*;
-import com.sun.xml.internal.ws.wsdl.writer.document.http.Address;
+import com.iweb.pro_test.clazzs.*;
+import com.iweb.pro_test.clazzs.ShopCar;
+import com.iweb.pro_test.clazzs.User;
 
 
 import java.util.Collection;
@@ -10,6 +11,10 @@ import java.util.Collection;
  * @date 2023/7/17 18:47
  */
 public interface UserDao {
+    /**用户购买商品后更新余额
+     * @param user 用户
+     */
+    void updateUserMoney(User user);
     /**用户注册
      * @param user 用户
      */
@@ -81,10 +86,8 @@ public interface UserDao {
 
     /**购物车结算，生成订单
      * @param user 用户
-     * @param order 订单
-     * @param product 商品
      */
-    void addOrder(User user, Order order,Product product);
+    void addOrder(User user);
 
 
 }
