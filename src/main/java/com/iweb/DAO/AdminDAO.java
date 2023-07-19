@@ -12,7 +12,7 @@ public interface AdminDAO {
     /**
      * 管理员注册
      *
-     * @param admin 提供管理员信息
+     * @param admin  提供管理员信息
      */
     void adminRegister(Admin admin);
 
