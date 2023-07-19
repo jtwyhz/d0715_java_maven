@@ -25,7 +25,7 @@ public class MainView {
         //登录分为管理员登录和用户登录；
         System.out.println("2.注册");
         //管理员注册和用户注册
-        Controller.Main();
+        ShoppingPlatform.view.Controller.Main();
     }
 
 }
