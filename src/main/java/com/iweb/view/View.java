@@ -6,8 +6,12 @@ package com.iweb.view;
 import com.iweb.DAO.impl.AdminDAOImpl;
 import com.iweb.DAO.UserDAO;
 import com.iweb.DAO.impl.UserDAOImpl;
+import com.iweb.clazzs.Admin;
+import com.iweb.clazzs.User;
 import com.iweb.control.Controller;
 import com.iweb.DAO.AdminDAO;
+import com.iweb.service.AdminService;
+import com.iweb.service.UserService;
 
 import java.util.Scanner;
 

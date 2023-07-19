@@ -3,7 +3,7 @@ package com.iweb.control;
 
 import com.iweb.DAO.UserDAO;
 import com.iweb.DAO.impl.UserDAOImpl;
-import com.iweb.entry.User;
+import com.iweb.clazzs.User;
 import com.iweb.view.View;
 
 /**
@@ -55,7 +55,7 @@ public class Controller {
         }
     }
 
-    public static void userSuccessController(String key ,User user){
+    public static void userSuccessController(String key , User user){
         switch (key){
             case "1":
                 userDAO.checkMoney(user);

@@ -18,9 +18,9 @@ public class Admin {
     private int admin_id;
     private String admin_name;
     private String admin_password;
-    private int admin_phone;
+    private String admin_phone;
 
-    public Admin(String admin_name, String admin_password, int admin_phone) {
+    public Admin(String admin_name, String admin_password, String admin_phone) {
         this.admin_name = admin_name;
         this.admin_password = admin_password;
         this.admin_phone = admin_phone;

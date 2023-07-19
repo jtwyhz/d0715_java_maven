@@ -10,26 +10,33 @@ import java.util.Collection;
  * @date 2023/7/17 18:47
  */
 public interface UserDAO {
+
+
+    /**
+     * 注册新用户
+     *
+     * @param user 提供用户信息
+     */
+    void userRegister(User user);
+
+    /**
+     * 显示所有用户信息 用于登录和注册判断
+     *
+     * @return 返回所有用户集合
+     */
+    Collection<User> listAllUser();
+
+
+    /**查看用户余额
+     * @param user
+     */
+    void checkMoney(User user);
+
     /**用户购买商品后更新余额
      * @param user 用户
      */
     void updateUserMoney(User user);
-    /**用户注册
-     * @param user 用户
-     */
-    void insert(User user);
 
-    /**包含用户名，无法注册，登录则验证密码
-     * @param user_name 通过用户名查找是否存在该用户
-     * @return 返回所有用户id结果集
-     */
-    User selectUser(String user_name);
-
-    /**查看用户信息
-     * @param user 用户
-     * @return 返回单个用户全部信息
-     */
-    User selectUser(User user);
 
     /**查看购物车
      * @param user 用户
@@ -71,7 +78,6 @@ public interface UserDAO {
      */
     void insertAddress(Address address, int Address_id, int user_id, String detail);
 
-    void insertAddress(com.sun.xml.internal.ws.wsdl.writer.document.http.Address address, int address_id, int user_id, String detail);
 
     /**需要删除的用户地址，要求用户提供地址id
      * @param id 用户
@@ -88,8 +94,5 @@ public interface UserDAO {
     /**购物车结算，生成订单
      * @param user 用户
      */
-    void addOrder(User user);
 
-
-    void addOrder(User user, Order order, Product product);
 }

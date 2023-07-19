@@ -2,8 +2,7 @@ package com.iweb.DAO.impl;
 
 import com.iweb.DAO.AdminDAO;
 import com.iweb.Until.DBUtil;
-import com.iweb.entry.Admin;
-
+import com.iweb.clazzs.Admin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

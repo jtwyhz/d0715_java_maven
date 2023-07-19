@@ -1,6 +1,6 @@
 package com.iweb.DAO;
 
-import com.iweb.entry.Admin;
+import com.iweb.clazzs.Admin;
 
 import java.util.Collection;
 

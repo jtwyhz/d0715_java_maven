@@ -3,7 +3,7 @@ package com.iweb.service;
 
 import com.iweb.DAO.AdminDAO;
 import com.iweb.DAO.impl.AdminDAOImpl;
-import com.iweb.entry.Admin;
+import com.iweb.clazzs.Admin;
 import com.iweb.view.View;
 
 import java.util.Collection;
@@ -17,10 +17,10 @@ import java.util.Collection;
 
 public class AdminService {
     //        定义实现类
-    static AdminDAO adminDAO = (AdminDAO) new AdminDAOImpl();
+    static AdminDAO adminDAO =  new AdminDAOImpl();
     //        集合传参
-    static Collection<Admin> ca = adminDAO.listAllAdmin();
-
+//    static Collection<Admin> ca = adminDAO.listAllAdmin();
+static Collection<Admin> ca=adminDAO.listAllAdmin();
     //    判断登录用户是否存在
     public static boolean isAdmin(Admin admin) {
 //        定义bollean变量
