@@ -1,6 +1,6 @@
 package com.iweb.ShoppingPlatform.TableInformation;
 
-import ShoppingPlatform.DBUtil.DBUtil;
+import com.iweb.ShoppingPlatform.DBUtil.DBUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

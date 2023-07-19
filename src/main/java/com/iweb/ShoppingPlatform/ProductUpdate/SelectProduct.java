@@ -1,8 +1,8 @@
 package com.iweb.ShoppingPlatform.ProductUpdate;
 
-import ShoppingPlatform.DBUtil.DBUtil;
-import ShoppingPlatform.TableInformation.Product;
-import ShoppingPlatform.view.AdministratorView;
+import com.iweb.ShoppingPlatform.DBUtil.DBUtil;
+import com.iweb.ShoppingPlatform.TableInformation.Product;
+import com.iweb.ShoppingPlatform.view.AdministratorView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

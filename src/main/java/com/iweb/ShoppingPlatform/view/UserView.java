@@ -1,8 +1,8 @@
 package com.iweb.ShoppingPlatform.view;
 
-import ShoppingPlatform.TableInformation.Catalog;
-import ShoppingPlatform.TableInformation.ShopCar;
-import ShoppingPlatform.UserCharge;
+import com.iweb.ShoppingPlatform.TableInformation.Catalog;
+import com.iweb.ShoppingPlatform.TableInformation.ShopCar;
+import com.iweb.ShoppingPlatform.UserCharge;
 
 import java.util.Scanner;
 

@@ -1,8 +1,8 @@
 package com.iweb.ShoppingPlatform.view;
 
-import ShoppingPlatform.OrderUpdate.OrderUpdate;
-import ShoppingPlatform.ProductUpdate.ProductUpdate;
-import ShoppingPlatform.ProductUpdate.SelectProduct;
+import com.iweb.ShoppingPlatform.OrderUpdate.OrderUpdate;
+import com.iweb.ShoppingPlatform.ProductUpdate.ProductUpdate;
+import com.iweb.ShoppingPlatform.ProductUpdate.SelectProduct;
 
 import java.util.Scanner;
 

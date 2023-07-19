@@ -1,10 +1,10 @@
 package com.iweb.ShoppingPlatform.Login;
 
-import ShoppingPlatform.DBUtil.DBUtil;
-import ShoppingPlatform.TableInformation.Admin;
-import ShoppingPlatform.view.AdministratorView;
-import ShoppingPlatform.view.MainView;
-import ShoppingPlatform.view.UserView;
+import com.iweb.ShoppingPlatform.DBUtil.DBUtil;
+import com.iweb.ShoppingPlatform.TableInformation.Admin;
+import com.iweb.ShoppingPlatform.view.AdministratorView;
+import com.iweb.ShoppingPlatform.view.MainView;
+import com.iweb.ShoppingPlatform.view.UserView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

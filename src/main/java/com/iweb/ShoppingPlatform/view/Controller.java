@@ -1,7 +1,7 @@
 package com.iweb.ShoppingPlatform.view;
 
-import ShoppingPlatform.Login.Login;
-import ShoppingPlatform.Register.Register;
+import com.iweb.ShoppingPlatform.Login.Login;
+import com.iweb.ShoppingPlatform.Register.Register;
 
 import java.util.Scanner;
 

@@ -1,7 +1,7 @@
 package com.iweb.ShoppingPlatform;
 
-import ShoppingPlatform.DBUtil.DBUtil;
-import ShoppingPlatform.view.UserView;
+import com.iweb.ShoppingPlatform.DBUtil.DBUtil;
+import com.iweb.ShoppingPlatform.view.UserView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
