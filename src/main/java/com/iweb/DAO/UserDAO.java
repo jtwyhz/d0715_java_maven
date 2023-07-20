@@ -1,4 +1,5 @@
 package com.iweb.DAO;
+
 import com.iweb.clazzs.*;
 
 
@@ -26,53 +27,71 @@ public interface UserDAO {
     Collection<User> listAllUser();
 
 
-    /**查看用户余额
+    /**
+     * 查看用户余额
+     *
      * @param user
      */
     void checkMoney(User user);
 
-    /**用户购买商品后更新余额
+    /**
+     * 用户购买商品后更新余额
+     *
      * @param user 用户
      */
     void updateUserMoney(User user);
 
 
-    /**查看购物车
+    /**
+     * 查看购物车
+     *
      * @param user 用户
      * @return 返回某个用户的购物车信息
      */
     ShopCar checkCar(User user);
 
-    /**查看所有商品（系统推荐），
+    /**
+     * 查看所有商品（系统推荐），
+     *
      * @return 返回商品集合，
      */
     Collection<Product> lookProduct();
 
-    /**按照商品销量进行降序排序展示
+    /**
+     * 按照商品销量进行降序排序展示
+     *
      * @return 所有商品
      */
     Collection<Product> lookProductForSaleNum();
 
-    /**将商品添加到购物车
-     * @param user 为哪个用户的购物车添加
+    /**
+     * 将商品添加到购物车
+     *
+     * @param user    为哪个用户的购物车添加
      * @param product 某件商品
      */
     void addProductToCar(User user, Product product);
 
-    /**将商品从购物车中删除
-     * @param user_id 为哪个用户的购物车
+    /**
+     * 将商品从购物车中删除
+     *
+     * @param user_id    为哪个用户的购物车
      * @param product_id 某件商品，要求用户提供商品id
      */
     void deleteProductFromCar(int user_id, int product_id);
 
 
-    /**需要添加的地址
+    /**
+     * 需要添加的地址
+     *
      * @param user_id 用户
      * @param address 地址
      */
     void insertAddress(Address address, int Address_id, int user_id, String detail);
 
-    /** 获得地址
+    /**
+     * 获得地址
+     *
      * @param user_id
      * @param detail
      * @param address_id
@@ -80,19 +99,25 @@ public interface UserDAO {
      */
     Address getAddress(int user_id, String detail, int address_id);
 
-    /**需要删除的用户地址，要求用户提供地址id
+    /**
+     * 需要删除的用户地址，要求用户提供地址id
+     *
      * @param id 用户
      * @param
      */
     void deleteAddress(int id);
 
-    /**返回用户的订单信息
+    /**
+     * 返回用户的订单信息
+     *
      * @param user 用户
      * @return 返回订单的所有信息
      */
     Order checkOrder(User user);
 
-    /**购物车结算，生成订单
+    /**
+     * 购物车结算，生成订单
+     *
      * @param user 用户
      */
     void addOrder(User user);

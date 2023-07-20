@@ -66,7 +66,7 @@ public class Controller {
     public static void userSuccessController(String key, User user) {
         switch (key) {
             case "1":
-                userDAO.checkMoney(user);
+                userDAO.userCharge(user);
                 break;
             case "2":
                 View.checkProductMethod(user);

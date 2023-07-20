@@ -48,7 +48,7 @@ public class View {
         System.out.println("2.管理员");
         System.out.println("*****************");
         String key = sc.nextLine();
-        Controller.loginController(key);
+         Controller.loginController(key);
     }
 
     //普通用户登录界面
@@ -66,7 +66,12 @@ public class View {
             System.out.println("用户名或密码错误,重新输入");
             View.userLoginView();
         }
-        userLoginSuccess(currentUser);
+//        for (User u:userDAO.listAllUser()){
+//            if(u.getUser_name().equals(user.getUser_name())){
+//                user=u;
+//            }
+//        }
+        userLoginSuccess(user);
     }
 
     //    用户登录成功界面
@@ -80,7 +85,7 @@ public class View {
         System.out.println("5.返回主界面");
         System.out.println("*****************");
         String key = sc.nextLine();
-        Controller.userSuccessController(key, currentUser);
+        Controller.userSuccessController(key, user);
     }
 
     // 是否充值余额
