@@ -187,7 +187,7 @@ public class UserDAOImpl implements UserDAO {
                 product.setSales_num(rs.getInt(5));
                 product.setProperty_id(rs.getInt(6));
                 product.setProperty_name(rs.getString(7));
-                product.setProperty_describe(rs.getString(8)); 
+                product.setProperty_describe(rs.getString(8));
                 product.setAdmin_id(rs.getInt(9));
                 list.add(product);
             }

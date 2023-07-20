@@ -23,7 +23,7 @@ public class ShopCar {
 
     @Override
     public String toString() {
-        return shopCar_id+","+user_id+","+product_id+","
-                +product_price+","+product_num+","+sum_price;
+        return "shopCar_id:"+shopCar_id+",user_id:"+user_id+",product_id:"+product_id+",product_price"
+                +product_price+",product_num"+product_num+",sum_price"+sum_price;
     }
 }
