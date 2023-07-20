@@ -104,7 +104,7 @@ public class View {
         System.out.println("请选择你要查看商品的方式:");
         System.out.println("1.默认排序");
         System.out.println("2.按销量排序");
-        System.out.println("*****************");
+        System.out.println("*****************"); 
         String key = sc.nextLine();
         Controller.checkProductController(user,key);
 

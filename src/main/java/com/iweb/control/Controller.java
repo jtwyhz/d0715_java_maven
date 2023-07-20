@@ -111,7 +111,7 @@ public static void userChargeController(String key,User user){
                     product.setProduct_id(pid);
                     userDAO.addProductToCar(user,product);
                     View.userLoginSuccess(user);
-                    break; 
+                    break;
                 }else {
                     View.userLoginSuccess(user);
                 }
