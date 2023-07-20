@@ -135,7 +135,7 @@ public static void userChargeController(String key,User user){
                 }else {
                     View.userLoginSuccess(user);
                 }
-                View.userLoginSuccess(user);
+                 View.userLoginSuccess(user);
                 break;
             default:
                 break;
