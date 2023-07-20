@@ -21,5 +21,9 @@ public class ShopCar {
     private int product_num;
     private double sum_price;
 
-
+    @Override
+    public String toString() {
+        return shopCar_id+","+user_id+","+product_id+","
+                +product_price+","+product_num+","+sum_price;
+    }
 }

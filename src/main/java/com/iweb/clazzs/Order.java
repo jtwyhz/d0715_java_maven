@@ -22,4 +22,9 @@ public class Order {
     private int product_num;
     private double order_sum_price;
     private String order_state;
+
+    @Override
+    public String toString() {
+        return product_id+","+product_name+","+product_num+","+order_sum_price+","+order_state;
+    }
 }

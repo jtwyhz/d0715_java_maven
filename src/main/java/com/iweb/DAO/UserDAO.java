@@ -85,19 +85,16 @@ public interface UserDAO {
      * 需要添加的地址
      *
      * @param user_id 用户
-     * @param address 地址
      */
-    void insertAddress(Address address, int Address_id, int user_id, String detail);
+    void insertAddress( int Address_id, int user_id, String detail);
 
     /**
      * 获得地址
      *
-     * @param user_id
-     * @param detail
-     * @param address_id
+     * @param user
      * @return
      */
-    Address getAddress(int user_id, String detail, int address_id);
+    Address getAddress(User user);
 
     /**
      * 需要删除的用户地址，要求用户提供地址id

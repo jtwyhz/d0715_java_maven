@@ -70,6 +70,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
+                user.setUser_id(rs.getInt(1));
                 user.setUser_name(rs.getString("user_name"));
                 user.setUser_password(rs.getString("user_password"));
                 user.setUser_phone(rs.getString("user_phone"));
@@ -249,20 +250,14 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public Address getAddress(int user_id, String detail, int address_id) {
+    public Address getAddress(User user) {
         try {
-            String sql = "SELECT * FROM address WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            System.out.println("需要获取的地址是：");
-            statement.setInt(1, user_id);
-            ResultSet resultSet = statement.executeQuery();
+            String sql = "SELECT * FROM address WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1,user.getUser_id());
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                int user_id1 = resultSet.getInt("user_id");
-                String detail1 = resultSet.getString("detail");
-                int address_id1 = resultSet.getInt("address_id");
-                System.out.println("用户id：" + user_id1);
-                System.out.println("地址：" + detail1);
-                System.out.println("地址id：" + address_id1);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -271,11 +266,10 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void insertAddress(Address address, int address_id, int user_id, String detail) {
+    public void insertAddress( int address_id, int user_id, String detail) {
         try {
             String sql = "INSERT INTO address(address_id, user_id, detail) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            System.out.println("你需要插入的地址是：");
             statement.setInt(1, address_id);
             statement.setInt(2, Integer.parseInt(detail));
             statement.setString(3, String.valueOf(user_id));
@@ -292,7 +286,6 @@ public class UserDAOImpl implements UserDAO {
         try {
             String sql = "DELETE FROM address WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            System.out.println("你需要删除的地址是：");
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (Exception e) {

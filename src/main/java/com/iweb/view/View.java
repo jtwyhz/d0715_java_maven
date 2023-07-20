@@ -104,7 +104,7 @@ public class View {
         System.out.println("请选择你要查看商品的方式:");
         System.out.println("1.默认排序");
         System.out.println("2.按销量排序");
-        System.out.println("*****************"); 
+        System.out.println("*****************");
         String key = sc.nextLine();
         Controller.checkProductController(user,key);
 
@@ -135,7 +135,8 @@ public class View {
         System.out.println("4.查看商品信息");
         System.out.println("5.查看订单信息");
         System.out.println("6.修改订单信息");
-        System.out.println("7.返回主界面");
+        System.out.println("7.导出excle表格");
+        System.out.println("8.返回主界面");
         System.out.println("*****************");
         String key = sc.nextLine();
         Controller.adminSuccessController(key);
