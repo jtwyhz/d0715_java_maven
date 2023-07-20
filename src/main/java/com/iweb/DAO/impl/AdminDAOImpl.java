@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class AdminDAOImpl implements AdminDAO {
     Connection connection;
+
     {
         try {
             connection = DBUtil.getConnection();
@@ -39,7 +40,7 @@ public class AdminDAOImpl implements AdminDAO {
         }
         //        连接数据库 进行数据插入
         try (
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+                PreparedStatement ps = connection.prepareStatement(sql)) {
             //            为每个?设置相应的值
             ps.setString(1, admin.getAdmin_name());
             ps.setString(2, admin.getAdmin_password());
@@ -56,7 +57,7 @@ public class AdminDAOImpl implements AdminDAO {
         List<Admin> list = new ArrayList<>();
         String sql = "select * from admin";
         try (
-             PreparedStatement ps = connection.prepareStatement(sql)
+                PreparedStatement ps = connection.prepareStatement(sql)
         ) {
 //            sql语句的执行结果存入到结果集中
             ResultSet rs = ps.executeQuery();
@@ -136,7 +137,6 @@ public class AdminDAOImpl implements AdminDAO {
             e.printStackTrace();
         }
     }
-
     @Override
     public void changeProduct(int pid, double pr, int st, int sa) {
         String sql = "select product_id from product";
@@ -241,11 +241,11 @@ public class AdminDAOImpl implements AdminDAO {
             boolean isExist = true;
             while (rs.next()) {
                 if (oid==rs.getInt(1)) {
-                    isExist=false;
                     ps1.setString(1,state);
                     ps1.setInt(2,oid);
                     ps1.execute();
                     System.out.println("修改成功");
+                    isExist=false;
                     break;
                 }
             }
