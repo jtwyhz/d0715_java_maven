@@ -108,11 +108,10 @@ public class UserDAOImpl implements UserDAO {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, user.getUser_id());
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                double money = rs.getDouble("money");
-                System.out.println("余额为:" + money);
-            }
-            View.userCharge(user);
+            while (rs.next()){
+            double money = rs.getDouble("money");
+            System.out.println("余额为:" + money);}
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,12 +119,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public ShopCar checkCar(User user) {
-        String sql = "select * from shopcar where user_id=?";
+        String sql="select * from shopcar where user_id=?";
         ShopCar shopCar = new ShopCar();
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, user.getUser_id());
-            ResultSet rs = preparedStatement.executeQuery();
+        try{
+            preparedStatement =connection.prepareStatement(sql);
+            preparedStatement.setInt(1,user.getUser_id());
+            ResultSet rs= preparedStatement.executeQuery();
             while (rs.next()) {
 
                 shopCar.setShopCar_id(rs.getInt(1));
@@ -135,7 +134,7 @@ public class UserDAOImpl implements UserDAO {
                 shopCar.setProduct_num(rs.getInt(5));
                 shopCar.setSum_price(rs.getDouble(6));
             }
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
         return shopCar;
@@ -145,7 +144,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Collection<Product> lookProduct() {
         String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
-                ",product.property_id,property_name,property_describe,admin_id FROM product,property limit 0,10";
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property limit 0,10" ;
         List<Product> list = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -172,7 +171,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Collection<Product> lookProductForSaleNum() {
         String sql = "SELECT product_id,product_name,product_price,stock_num,sales_num" +
-                ",product.property_id,property_name,property_describe,admin_id FROM product,property order by sales_num desc limit 0,10";
+                ",product.property_id,property_name,property_describe,admin_id FROM product,property order by sales_num desc limit 0,10" ;
         List<Product> list = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -200,7 +199,7 @@ public class UserDAOImpl implements UserDAO {
     public void addProductToCar(User user, Product product) {
         String haveTheProduct = "select product_num,sum_price from shopcar where product_id=?";
         String addToCar = "insert into shopcar(user_id,product_id,product_price,product_num,sum_price) values (?,?,?,?,?)";
-        String updateTheCar = "update shopcar set product_num=?,sum_price=? where product_id=?";
+        String updateTheCar="update shopcar set product_num=?,sum_price=? where product_id=?";
         int productNum = 0;
         double sumPrice = 0.0;
         try {
@@ -210,19 +209,19 @@ public class UserDAOImpl implements UserDAO {
 //          查看购物车中是否存在该商品，存在则更新，不存在直接插入
             if (resultSet.next()) {
                 productNum = resultSet.getInt(1);
-                sumPrice = resultSet.getDouble(2);
+                sumPrice=resultSet.getDouble(2);
                 preparedStatement = connection.prepareStatement(updateTheCar);
                 preparedStatement.setInt(1, productNum + 1);
-                preparedStatement.setDouble(2, sumPrice + product.getProduct_price());
-                preparedStatement.setInt(3, product.getProduct_id());
+                preparedStatement.setDouble(2, sumPrice+product.getProduct_price());
+                preparedStatement.setInt(3,product.getProduct_id());
                 preparedStatement.execute();
-            } else {
-                preparedStatement = connection.prepareStatement(addToCar);
+            }  else {
+                preparedStatement=connection.prepareStatement(addToCar);
                 preparedStatement.setInt(1, user.getUser_id());
                 preparedStatement.setInt(2, product.getProduct_id());
                 preparedStatement.setDouble(3, product.getProduct_price());
-                preparedStatement.setInt(4, 1);
-                preparedStatement.setDouble(5, product.getProduct_price());
+                preparedStatement.setInt(4,1);
+                preparedStatement.setDouble(5,product.getProduct_price());
                 preparedStatement.execute();
             }
             System.out.println("添加完成！");
@@ -234,11 +233,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteProductFromCar(int user_id, int product_id) {
-        String deleteProduct = "delete from shopcar where user_id=? and product_id=?";
+        String deleteProduct="delete from shopcar where user_id=? and product_id=?";
         try {
-            preparedStatement = connection.prepareStatement(deleteProduct);
-            preparedStatement.setInt(1, user_id);
-            preparedStatement.setInt(2, product_id);
+            preparedStatement=connection.prepareStatement(deleteProduct);
+            preparedStatement.setInt(1,user_id);
+            preparedStatement.setInt(2,product_id);
             preparedStatement.execute();
             System.out.println("删除成功！");
 //            System.out.println("请选择：1.浏览商品  2.查看购物车  3.继续删除");
@@ -303,20 +302,20 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Order checkOrder(User user) {
-        String sql = "select * from orders where user_id=?";
-        Order order = new Order();
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, user.getUser_id());
-            ResultSet rs = preparedStatement.executeQuery();
+        String sql="select * from orders where user_id=?";
+        Order order=new Order();
+        try{
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setInt(1,user.getUser_id());
+            ResultSet rs=preparedStatement.executeQuery();
             rs.next();
-            order.setOrder_num(rs.getInt(1));
-            order.setProduct_id(rs.getInt(3));
-            order.setProduct_name(rs.getString(4));
-            order.setProduct_price(rs.getDouble(5));
-            order.setProduct_num(rs.getInt(6));
-            order.setOrder_state(rs.getString(7));
-        } catch (Exception e) {
+             order.setOrder_num(rs.getInt(1));
+             order.setProduct_id(rs.getInt(3));
+             order.setProduct_name(rs.getString(4));
+             order.setProduct_price(rs.getDouble(5));
+             order.setProduct_num(rs.getInt(6));
+             order.setOrder_state(rs.getString(7));
+        }catch (Exception e){
 
         }
         return order;
@@ -410,31 +409,30 @@ public class UserDAOImpl implements UserDAO {
         }
 
     }
-
-    @Override
-    public void userCharge(User user) {
+     @Override
+    public  void userCharge(User user) {
         String sql = "select * from user where user_id=?";
         try (Connection c = DBUtil.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, user.getUser_id());
-            ResultSet rs = ps.executeQuery();
+            ps.setInt(1,user.getUser_id());
+            ResultSet rs=ps.executeQuery();
             rs.next();
-            double money = rs.getDouble("money");
-            System.out.println("您当前的余额为：" + money);
+            double money=rs.getDouble("money");
+            System.out.println("您当前的余额为："+money);
             System.out.println("充值金额：");
-            Scanner sc = new Scanner(System.in);
-            double inMoney = sc.nextDouble();
-            if (inMoney < 0) {
+            Scanner sc=new Scanner(System.in);
+            double inMoney=sc.nextDouble();
+            if (inMoney<0){
                 System.out.println("请输入正确的金额");
                 userCharge(user);
-            } else {
-                String sql1 = "update user set money=money+" + inMoney + "where user_id=?";
-                PreparedStatement ps1 = connection.prepareStatement(sql1);
-                ps1.setInt(1, user.getUser_id());
+            }else {
+                String sql1="update user set money=money+"+inMoney+"where user_id=?";
+                PreparedStatement ps1=connection.prepareStatement(sql1);
+                ps1.setInt(1,user.getUser_id());
                 ps1.execute();
                 System.out.println("充值成功");
-                money += inMoney;
-                System.out.println("您当前的余额为：" + money);
+                money+=inMoney;
+                System.out.println("您当前的余额为："+money);
                 View.userCharge(user);
             }
         } catch (Exception e) {

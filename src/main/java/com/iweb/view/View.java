@@ -53,7 +53,7 @@ public class View {
 
     //普通用户登录界面
     public static void userLoginView() {
-        System.out.println("*****************");
+        System.out.println("******用户登录******");
         System.out.println("请输入用户名:");
         String userName = sc.nextLine();
         System.out.println("请输入密码:");
@@ -61,10 +61,11 @@ public class View {
         User user = new User();
         user.setUser_name(userName);
         user.setUser_password(userPassword);
-        user.setUser_id(1);
 //        判断是否登录成功
-        currentUser=user;
-        UserService.isUser(currentUser);
+        if (!UserService.isUser(user)){
+            System.out.println("用户名或密码错误,重新输入");
+            View.userLoginView();
+        }
         userLoginSuccess(currentUser);
     }
 
@@ -132,7 +133,7 @@ public class View {
         System.out.println("7.返回主界面");
         System.out.println("*****************");
         String key = sc.nextLine();
-        Controller.adminSuccessController(key);
+//        Controller.adminSuccessController(key);
     }
 
     //选择注册界面
@@ -166,8 +167,10 @@ public class View {
         user.setUser_password(userPassword);
         user.setUser_phone(userPhone);
         user.setUser_address(userAddress);
+        if (UserService.isRegister(user)){//是否注册成功
+            userLoginView();
+        }
         userDAO.userRegister(user);   // 调用userRegister方法进行用户注册
-        UserService.isRegister(user);
         System.out.println("*****************");
     }
 

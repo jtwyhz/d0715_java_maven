@@ -25,6 +25,16 @@ public class Product {
     private String property_describe;
     private int admin_id;
 
-    public Product(String str, double v, int i, int i1, int i2, int i3) {
+    @Override
+    public String toString() {
+        return "商品{" +
+                "id=" + product_id +
+                product_name +
+                ", 价格：" + product_price +
+                ", 库存：" + stock_num +
+                ", 销量：" + sales_num +
+                ", " + property_name  +
+                ", 描述：" + property_describe +
+                '}'+"\n";
     }
 }

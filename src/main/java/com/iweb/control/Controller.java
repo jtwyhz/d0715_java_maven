@@ -122,20 +122,7 @@ public static void userChargeController(String key,User user){
                      ) {
                     System.out.println(p);
                 }
-                System.out.println("是否购买商品 y/n");
-                String choice1=sc.nextLine();
-                if(choice1.equals("y")){
-                    System.out.println("请输入商品id");
-                    int pid =sc.nextInt();
-                    Product product = new Product();
-                    product.setProduct_id(pid);
-                    userDAO.addProductToCar(user,product);
-                    View.userLoginSuccess(user);
-                    break;
-                }else {
-                    View.userLoginSuccess(user);
-                }
-                  View.userLoginSuccess(user);
+                View.userLoginSuccess(user);
                 break;
             default:
                 break;
