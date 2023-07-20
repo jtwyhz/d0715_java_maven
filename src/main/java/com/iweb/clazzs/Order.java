@@ -25,6 +25,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return product_id+","+product_name+","+product_num+","+order_sum_price+","+order_state;
+        return "product_id"+product_id+",product_name"+product_name+",product_num"+product_num
+                +",order_sum_price"+order_sum_price+",order_state"+order_state;
     }
 }
