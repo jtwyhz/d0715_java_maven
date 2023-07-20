@@ -61,7 +61,6 @@ public class View {
         User user = new User();
         user.setUser_name(userName);
         user.setUser_password(userPassword);
-        user.setUser_id(1);
 //        判断是否登录成功
         if (!UserService.isUser(user)){
             System.out.println("用户名或密码错误,重新输入");
@@ -72,7 +71,7 @@ public class View {
 //                user=u;
 //            }
 //        }
-        userLoginSuccess(user);
+        userLoginSuccess(currentUser);
     }
 
     //    用户登录成功界面

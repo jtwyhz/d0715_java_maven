@@ -72,7 +72,8 @@ public class Controller {
                 View.checkProductMethod(user);
                 break;
             case "3":
-                userDAO.checkCar(user);
+                System.out.println(userDAO.checkCar(user));
+                userDAO.addOrder(user);
                 break;
             case "4":
                 System.out.println(userDAO.checkOrder(user));
