@@ -133,7 +133,7 @@ public class View {
         System.out.println("7.返回主界面");
         System.out.println("*****************");
         String key = sc.nextLine();
-//        Controller.adminSuccessController(key);
+        Controller.adminSuccessController(key);
     }
 
     //选择注册界面
